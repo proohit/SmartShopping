@@ -1,0 +1,6 @@
+db:
+  host: ''
+  user: 'root'
+  password: ''
+  database: ''
+  port: 0000
