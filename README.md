@@ -1,16 +1,29 @@
 # SmartShopping
 
 ## Setup
-
+For initial setup we use virtualenv:
 ```bash
-pip install -r requirements.txt
+virtualenv env
+source ./env/bin/activate
+make install
 ```
 
+To start the server:
 ```bash
-python server.py
+make start
 ```
 
 ## Configuration
+
+### supervisor
+
+```
+[program: smartshoppingbackend]
+directory=/home/ASDF/SmartShopping
+command = env/bin/python3 server.py
+autostart=yes
+autorestart=yes
+```
 
 ### config.yaml
 
