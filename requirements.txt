@@ -3,3 +3,4 @@ flask_restful
 mysql-connector-python-rf
 pyyaml
 jsonpickle
+flask-cors
