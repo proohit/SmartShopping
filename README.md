@@ -1,13 +1,20 @@
 # SmartShopping
 
 ## Setup
-For initial setup we use virtualenv:
+For initial setup we use virtualenv. You may need to install virtualenv first, depending on your setup. Check if virtualenv is installed:
 ```bash
-virtualenv env
+python3 -m venv -h
+```
+If it is not installed, install it for python:
+```bash
+python3 -m pip install virtualenv
+```
+
+```bash
+python3 -m venv env
 source ./env/bin/activate
 make install
 ```
-
 To start the server:
 ```bash
 make start
