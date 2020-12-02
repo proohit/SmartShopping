@@ -27,7 +27,7 @@ class DbConfig():
 
 class Config():
     def __init__(self) -> None:
-        configfile = yaml.safe_load(open("config.yaml"))
+        configfile = yaml.safe_load(open('config.yaml'))
         self.db = DbConfig(configfile)
 
 

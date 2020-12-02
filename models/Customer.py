@@ -4,17 +4,19 @@ from flask import json
 class Customer():
     def __init__(self,
                  customer_id=None,
-                 gender: int = None,
-                 age: int = None,
-                 city: int = None,
-                 price: int = None,
-                 regional: int = None,
-                 sustainability: int = None,
+                 gender: float = None,
+                 age: float = None,
+                 city: float = None,
+                 price: float = None,
+                 health: float = None,
+                 regional: float = None,
+                 sustainability: float = None,
                  ) -> None:
         self.customer_id = customer_id
         self.gender = gender
         self.age = age
         self.regional = regional
+        self.health = health
         self.city = city
         self.price = price
         self.sustainability = sustainability

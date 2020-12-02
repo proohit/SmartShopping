@@ -20,7 +20,7 @@ class ProductRepository():
         return products
 
     def get_product_by_id(self, id) -> Product:
-        query = f"select * from products where product_id={id}"
+        query = "select * from products where product_id={id}"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
