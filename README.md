@@ -36,8 +36,16 @@ python -m venv env
 
 To start the server:
 
+UNIX:
+
 ```bash
 make start
+```
+
+Windows:
+
+```powershell
+.\start.bat
 ```
 
 ## Configuration
