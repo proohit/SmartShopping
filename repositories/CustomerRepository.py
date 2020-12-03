@@ -19,7 +19,7 @@ class CustomerRepository():
         return customers
 
     def get_customer_by_id(self, id) -> Customer:
-        query = "select * from customer where customer_id={id}"
+        query = f"select * from customer where customer_id={id}"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
