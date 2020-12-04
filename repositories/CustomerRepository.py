@@ -7,7 +7,7 @@ class CustomerRepository():
         self.dbmanager = dbmanager
 
     def get_all_customer(self) -> List[Customer]:
-        query = "select customer_id, gender, age, city, price, regional, health, sustainability from customer"
+        query = "select gender as f0, health as f1 from customer" #änderung damit  [{"f0": 1.0, "f1": 5.0}] rauskommt
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
@@ -15,7 +15,7 @@ class CustomerRepository():
         result = cursor.fetchall()
         customers = []
         for customer in result:
-            customers.append(Customer(customer_id=customer[0], gender=customer[1], age=customer[2], city=customer[3], price=customer[4], regional=customer[5], health=customer[6], sustainability=customer[7]))
+            customers.append(Customer(f0=customer[0], f1=customer[1])) #änderung damit [{"f0": 1.0, "f1": 5.0}] rauskommt
         return customers
 
     def get_customer_by_id(self, id) -> Customer:

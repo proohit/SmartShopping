@@ -4,3 +4,6 @@ mysql-connector-python-rf
 pyyaml~=5.3.1
 jsonpickle~=1.4.1
 flask-cors
+pandas
+xgboost
+scikit-learn
