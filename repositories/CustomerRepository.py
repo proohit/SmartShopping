@@ -13,9 +13,11 @@ class CustomerRepository():
         cursor.execute(query)
 
         result = cursor.fetchall()
+        print(result)
         customers = []
-        for customers in result:
-            customers.append(Customer(customer_id=customers[0], gender=customers[1], age=customers[2], city=customers[3], price=customers[4], regional=customers[5], health=customers[6], sustainability=customers[7]))
+        for customer in result:
+            print(customer)
+            customers.append(Customer(customer_id=customer[0], gender=customer[1], age=customer[2], city=customer[3], price=customer[4], regional=customer[5], health=customer[6], sustainability=customer[7]))
         return customers
 
     def get_customer_by_id(self, id) -> Customer:
