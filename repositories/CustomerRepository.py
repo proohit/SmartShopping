@@ -13,10 +13,8 @@ class CustomerRepository():
         cursor.execute(query)
 
         result = cursor.fetchall()
-        print(result)
         customers = []
         for customer in result:
-            print(customer)
             customers.append(Customer(customer_id=customer[0], gender=customer[1], age=customer[2], city=customer[3], price=customer[4], regional=customer[5], health=customer[6], sustainability=customer[7]))
         return customers
 
