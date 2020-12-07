@@ -1,30 +1,25 @@
 import pickle
-#import jsonpickle
+# import jsonpickle
 from resources.CustomerResource import CustomerResource
-#from flask import make_response
-#from flask_restful import Resource
-import pandas as pd
+# from flask import make_response
+# from flask_restful import Resource
+from flask.views import MethodView
+#import pandas as pd
 import xgboost
 import json
 
-## JSON empfangen:
-
-# def to_json_bread():
-# return json.dumps(CustomerResource)
-
-
-## Model laden + Kuntendaten ins Model laden
-loaded_model = pickle.load(open("ds_models/pima.pickle_brot.txt", "rb"))
-
+## Daten empfangen:
+customer = CustomerResource
+print(customer)
+loaded_model = pickle.load(open("/Users/benjaminkampka/Desktop/Studium/Semester 7/Future Retail/SmartShopping/ds_models/pima.picklebrot.txt", "rb"))
 
 ## Prediction
-class BrotPrediction():
-        pred = loaded_model.predict(CustomerResource)
-        #prediction = make_response(
-         #   jsonpickle.encode(pred, unpicklable=False))
-        #return pred #FEHLER
+class test(MethodView):
+    def get(self):
+        pred = loaded_model.predict(customer)
+        return pred
 
 ## Bsp. Ausgabe
-# Zusätzliche SQL Abfrage der Productdatenbank <- eventuell hier Sortierung
+# print(pred)  # Zusätzliche SQL Abfrage der Productdatenbank <- eventuell hier Sortierung
 # GET
 ## -> Hier muss die "pred" zurpckgeschickt werden.
