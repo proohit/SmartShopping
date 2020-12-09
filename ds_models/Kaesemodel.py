@@ -10,7 +10,7 @@ import json
 
 # customers = CustomerResource
 loaded_model = pickle.load(
-    open("ds_models/pima.picklebrot.txt",
+    open("ds_models/pima.picklekaese.txt",
          "rb"))
 
 def obj_dict(obj):
@@ -22,7 +22,7 @@ class NumpyArrayEncoder(JSONEncoder):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
 
-class BrotPrediction(Resource):
+class KaesePrediction(Resource):
     def get(self):
         customer_repo = CustomerRepository(dbmanager)
         customers = customer_repo.get_all_customer()
@@ -31,4 +31,3 @@ class BrotPrediction(Resource):
         pred = loaded_model.predict(pandadf)
         predictionstring = json.dumps(pred, cls=NumpyArrayEncoder)
         return predictionstring # liefert endlich ausgabe ->
-
