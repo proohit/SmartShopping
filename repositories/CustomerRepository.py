@@ -7,7 +7,7 @@ class CustomerRepository():
         self.dbmanager = dbmanager
 
     def get_all_customer(self) -> List[Customer]:
-        query = "select gender as f0, health as f1 from customer" #änderung damit  [{"f0": 1.0, "f1": 5.0}] rauskommt
+        query = "select gender as f0, health as f1 from customer"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
@@ -15,18 +15,31 @@ class CustomerRepository():
         result = cursor.fetchall()
         customers = []
         for customer in result:
-            customers.append(Customer(f0=customer[0], f1=customer[1])) #änderung damit [{"f0": 1.0, "f1": 5.0}] rauskommt
+            customers.append(Customer(f0=customer[0], f1=customer[1]))
         return customers
-
-    def get_customer_by_id(self, id) -> Customer:
-        query = f"select * from customer where customer_id={id}"
+    # NEUER PART FÜR SPEZIFISCHE VORAUSSAGE NACH PRODUKTGRUPPE
+    def get_customer_by_id_bread(self, id) -> Customer: # wir müssen hierhin Switchen + ergänzen durch Milch und Käse
+        query = f"select gender as f0, health as f1  from customer where customer_id={id}"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
-        customers = cursor.fetchall()
-        if(len(customers)):
-            return customers[0]
-        return None
+
+        result = cursor.fetchall()
+        customers_bread = []
+        for customer in result:
+            customers_bread.append(Customer(f0=customer[0], f1=customer[1]))
+        return customers_bread
+
+    def get_customer_by_id_milk_chees(self, id) -> Customer: # ergänzung Milch und Käse
+        query = f"select regional as f0, sustainability as f1  from customer where customer_id={id}"
+        con = self.dbmanager.get_connection()
+        cursor = con.cursor(buffered=True)
+        cursor.execute(query)
+        result = cursor.fetchall()
+        customers_milk_chees = []
+        for customer in result:
+            customers_milk_chees.append(Customer(f0=customer[0], f1=customer[1]))
+        return customers_milk_chees
 
     def create_table_customer(self):
         query = (

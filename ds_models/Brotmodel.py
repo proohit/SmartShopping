@@ -25,7 +25,7 @@ class NumpyArrayEncoder(JSONEncoder):
 class BrotPrediction(Resource):
     def get(self):
         customer_repo = CustomerRepository(dbmanager)
-        customers = customer_repo.get_all_customer()
+        customers = customer_repo.get_customer_by_id_bread(1)
         customerjson = json.dumps(customers, default=obj_dict)
         pandadf = pd.read_json(customerjson)
         pred = loaded_model.predict(pandadf)
