@@ -43,11 +43,19 @@ class BrotPrediction(Resource):
         pred_int = pred.tolist()
         print("pred_int")
         print(pred_int)
+        print(type(pred_int))  # -> <class 'list'>
+
+        strings = [str(integer) for integer in pred_int]
+        a_string = "".join(strings)
+        pred_int = int(a_string)
+
+        print("pred_int_2")
+        print(pred_int)
         print(type(pred_int))
 
         product_repo = ProductRepository(dbmanager)
         products = product_repo.get_product_by_id(pred_int)
-        print(products)  # -> Object of type Product is not JSON serializable
+        print(products)  # -> Object of type Product is not JSON serializable -> [<models.Product.Product object at 0x118fd5df0>]
         return products  # liefert endlich ausgabe -> "[1]" <- als nächstes "Str" to "int"
 
 
