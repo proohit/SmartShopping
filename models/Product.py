@@ -10,6 +10,7 @@ class Product():
                  warnings='',
                  origin='',
                  product_id=None,
+                 distance: float = None,
                  ) -> None:
         self.product_id = product_id
         self.title = title
@@ -18,6 +19,7 @@ class Product():
         self.weight = weight
         self.price = price
         self.warnings = warnings
+        self.distance = distance
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

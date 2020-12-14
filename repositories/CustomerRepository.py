@@ -17,6 +17,7 @@ class CustomerRepository():
         for customer in result:
             customers.append(Customer(f0=customer[0], f1=customer[1]))
         return customers
+    
     # NEUER PART FÜR SPEZIFISCHE VORAUSSAGE NACH PRODUKTGRUPPE
     def get_customer_by_id_bread(self, id) -> Customer: # wir müssen hierhin Switchen + ergänzen durch Milch und Käse
         query = f"select gender as f0, health as f1  from customer where customer_id={id}"

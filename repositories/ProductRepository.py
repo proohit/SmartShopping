@@ -7,27 +7,30 @@ class ProductRepository():
         self.dbmanager = dbmanager
 
     def get_all_products(self) -> List[Product]:
-        query = "select product_id, title, description, origin, weight, price, warnings from products"
+        query = "select product_id, title, description, origin, weight, price, warnings, distance from products"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
-
         result = cursor.fetchall()
         products = []
         for product in result:
             products.append(Product(product_id=product[0], title=product[1], description=product[2],
-                                    origin=product[3], weight=product[4], price=product[5], warnings=product[6]))
+                                    origin=product[3], weight=product[4], price=product[5], warnings=product[6], distance=product[7]))
         return products
 
+
     def get_product_by_id(self, id) -> Product:
-        query = "select * from products where product_id={id}"
+        query = f"select * from products where product_id={id}"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
-        products = cursor.fetchall()
-        if(len(products)):
-            return products[0]
-        return None
+        result = cursor.fetchall()
+        products_single = []
+        for product in result:
+            products_single.append(Product(product_id=product[0], title=product[1], description=product[2],
+                                    origin=product[3], weight=product[4], price=product[5], warnings=product[6], distance=product[7]))
+        return products_single
+
 
     def create_table(self):
         query = (
@@ -47,16 +50,18 @@ class ProductRepository():
         con.commit()
         print('created product table')
 
+
     def drop_table(self):
         query = "DROP TABLE IF EXISTS Products"
         con = self.dbmanager.get_connection()
         cursor = con.cursor(buffered=True)
         cursor.execute(query)
 
+
     def create_product(self, product: Product) -> Product:
         sql_insert_query = """INSERT INTO Products
-                       (title, description, origin, weight, price, warnings)
-                       VALUES (%s,%s,%s,%s,%s,%s);"""
+                           (title, description, origin, weight, price, warnings)
+                           VALUES (%s,%s,%s,%s,%s,%s);"""
         product_tuple = (product.title, product.description, product.origin,
                          product.weight, product.price, product.warnings)
         con = self.dbmanager.get_connection()
