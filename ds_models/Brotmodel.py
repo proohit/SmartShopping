@@ -1,62 +1,41 @@
 import pickle
+import jsonpickle
+import json
 from repositories.DbManager import dbmanager
 from repositories.CustomerRepository import CustomerRepository
 from repositories.ProductRepository import ProductRepository
 from flask_restful import Resource, request
+from flask import make_response
 import pandas as pd
 from json import JSONEncoder
 import numpy
 import xgboost
-import json
-
 loaded_model = pickle.load(
     open("ds_models/pima.picklebrot.txt",
          "rb"))
-
 def obj_dict(obj):
     return obj.__dict__
-
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, numpy.ndarray):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
-
 class BrotPrediction(Resource):
     def get(self):
         customer_repo = CustomerRepository(dbmanager)
         args = request.args
         customer_id = args.get('customer')
         customers = customer_repo.get_customer_by_id_bread(customer_id)
-
         customerjson = json.dumps(customers, default=obj_dict)
         pandadf = pd.read_json(customerjson)
         pred = loaded_model.predict(pandadf)
-        predictionstring = json.dumps(pred, cls=NumpyArrayEncoder)
-        print("pred")
-        print(pred)  # -> <class 'numpy.ndarray'>
-        print(type(pred))
-        print("predictionstring")
-        print(predictionstring)  # -> <class 'str'>
-        print(type(predictionstring))
-
         pred_int = pred.tolist()
-        print("pred_int")
-        print(pred_int)
-        print(type(pred_int))  # -> <class 'list'>
-
         strings = [str(integer) for integer in pred_int]
         a_string = "".join(strings)
         pred_int = int(a_string)
-
-        print("pred_int_2")
-        print(pred_int)
-        print(type(pred_int))
-
         product_repo = ProductRepository(dbmanager)
         products = product_repo.get_product_by_id(pred_int)
-        print(products)  # -> Object of type Product is not JSON serializable -> [<models.Product.Product object at 0x118fd5df0>]
-        return products  # liefert endlich ausgabe -> "[1]" <- als nächstes "Str" to "int"
-
-
-
+        response = make_response(
+            jsonpickle.encode(products, unpicklable=False))
+        response.headers['content-type'] = 'application/json'
+        return response
