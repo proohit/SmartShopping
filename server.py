@@ -7,7 +7,7 @@ from flask_restful import Api
 # from flask.views import MethodView
 # from repositories.DbManager import dbmanager
 from flask_cors import CORS
-import xgboost  # wird benötigt für die Modelle
+# import xgboost  # wird benötigt für die Modelle
 # Modelle:
 from ds_models.Brotmodel import BrotPrediction
 from ds_models.Milchmodel import MilchPrediction

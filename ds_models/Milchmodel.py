@@ -9,9 +9,9 @@ from flask import make_response
 import pandas as pd
 from json import JSONEncoder
 import numpy
-import xgboost
+# import xgboost
 loaded_model = pickle.load(
-    open("ds_models/pima.picklemilch.txt",
+    open("ds_models/pima.pickle_milch.txt",
          "rb"))
 def obj_dict(obj):
     return obj.__dict__
